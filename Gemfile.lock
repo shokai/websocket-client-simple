@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    websocket-client-simple (0.0.1)
+      event_emitter
+      websocket
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    event_emitter (0.2.4)
+    rake (10.0.3)
+    websocket (1.0.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.3)
+  rake
+  websocket-client-simple!
