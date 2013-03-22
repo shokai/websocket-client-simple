@@ -1,3 +1,7 @@
+=== 0.0.2 2013-03-22
+
+* remove unnecessary sleep
+
 === 0.0.1 2013-03-22
 
 * release
