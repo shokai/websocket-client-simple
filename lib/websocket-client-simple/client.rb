@@ -48,9 +48,10 @@ module WebSocket
           @socket.write @hs.to_s
         end
 
-        def send(data)
+        def send(data, opt={:type => :text})
           return if !@handshaked or @closed
-          frame = ::WebSocket::Frame::Outgoing::Client.new(:data => data, :type => :text, :version => @hs.version)
+          type = opt[:type]
+          frame = ::WebSocket::Frame::Outgoing::Client.new(:data => data, :type => type, :version => @hs.version)
           begin
             @socket.write frame.to_s
           rescue => e
