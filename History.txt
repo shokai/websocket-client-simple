@@ -1,3 +1,7 @@
+=== 0.0.4 2013-03-23
+
+* fix sample and README
+
 === 0.0.3 2013-03-23
 
 * :type => :text option in send
