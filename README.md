@@ -43,6 +43,7 @@ Test
 
     % gem install bundler
     % bundle install
+    % export WS_PORT=8888
     % rake test
 
 
