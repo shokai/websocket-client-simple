@@ -29,6 +29,10 @@ ws.on :close do |e|
   p e
   exit 1
 end
+
+loop do
+  ws.send STDIN.gets.strip
+end
 ```
 
 
