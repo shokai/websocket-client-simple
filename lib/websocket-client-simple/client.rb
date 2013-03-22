@@ -42,7 +42,6 @@ module WebSocket
                   emit :message, msg
                 end
               end
-              sleep 0.001
             end
           end
 
