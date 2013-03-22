@@ -60,6 +60,7 @@ module WebSocket
         end
 
         def close
+          return if @closed
           @closed = true
           @socket.close if @socket
           @socket = nil
