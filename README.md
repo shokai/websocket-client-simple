@@ -22,12 +22,11 @@ ws.on :message do |msg|
 end
 
 ws.on :open do
-  puts 'open'
   ws.send 'hello!!!'
 end
 
 ws.on :close do |e|
-  puts 'close'
+  p e
   exit 1
 end
 ```
