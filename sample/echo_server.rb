@@ -15,7 +15,7 @@ EM::run do
       end
       puts "<#{sid}> connect"
 
-      @channel.push "hello <#{sid}>"
+      @channel.push "hello new client <#{sid}>"
 
       ws.onmessage do |msg|
         puts "<#{sid}> #{msg}"
