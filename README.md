@@ -1,27 +1,50 @@
-# Websocket::Client::Simple
+websocket-client-simple
+=======================
+Simple WebSocket Client on Ruby
 
-TODO: Write a gem description
 
-## Installation
+Installation
+------------
 
-Add this line to your application's Gemfile:
+    gem install websocket-client-simple
 
-    gem 'websocket-client-simple'
 
-And then execute:
+Usage
+-----
+```ruby
+ws = WebSocket::Client::Simple.connect 'http://example.com:8888'
 
-    $ bundle
+ws.on :message do |msg|
+  puts msg.data
+end
 
-Or install it yourself as:
+ws.on :open do
+  puts 'open'
+  ws.send 'hello!!!'
+end
 
-    $ gem install websocket-client-simple
+ws.on :close do |e|
+  puts 'close'
+  exit 1
+end
+```
 
-## Usage
 
-TODO: Write usage instructions here
+Sample
+------
+[websocket chat](https://github.com/shokai/websocket-client-simple/tree/master/sample)
 
-## Contributing
 
+Test
+----
+
+    % gem install bundler
+    % bundle install
+    % rake test
+
+
+Contributing
+------------
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
