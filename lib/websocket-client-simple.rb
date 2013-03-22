@@ -1,5 +1,10 @@
-require "websocket-client-simple/version"
-require "websocket-client-simple/client"
+require 'event_emitter'
+require 'websocket'
+require 'socket'
+require 'uri'
+
+require 'websocket-client-simple/version'
+require 'websocket-client-simple/client'
 
 module WebSocket
   module Client
