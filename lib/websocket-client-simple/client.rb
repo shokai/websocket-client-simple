@@ -23,7 +23,7 @@ module WebSocket
             emit :close, err
           end
 
-          Thread.new do
+          @thread = Thread.new do
             while !@closed do
               begin
                 recv_data = @socket.getc
@@ -63,6 +63,7 @@ module WebSocket
           return if @closed
           @closed = true
           @socket.close if @socket
+          Thread.kill @thread if @thread
           @socket = nil
           emit :__close
         end
