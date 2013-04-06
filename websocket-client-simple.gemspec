@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version       = WebSocket::Client::Simple::VERSION
   spec.authors       = ["Sho Hashimoto"]
   spec.email         = ["hashimoto@shokai.org"]
-  spec.description   = %q{WebSocket Client}
+  spec.description   = %q{Simple WebSocket Client for Ruby}
   spec.summary       = spec.description
   spec.homepage      = "https://github.com/shokai/websocket-client-simple"
   spec.license       = "MIT"

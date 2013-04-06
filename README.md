@@ -1,6 +1,6 @@
 websocket-client-simple
 =======================
-Simple WebSocket Client on Ruby
+Simple WebSocket Client for Ruby
 
 
 Installation
