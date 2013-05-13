@@ -11,11 +11,11 @@ GEM
     em-websocket (0.5.0)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.5.3)
-    event_emitter (0.2.4)
+    event_emitter (0.2.5)
     eventmachine (1.0.3)
     http_parser.rb (0.5.3)
-    minitest (4.7.0)
-    rake (10.0.3)
+    minitest (5.0.0)
+    rake (10.0.4)
     websocket (1.0.7)
 
 PLATFORMS

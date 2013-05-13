@@ -1,6 +1,6 @@
 require File.expand_path 'test_helper', File.dirname(__FILE__)
 
-class TestWebSocketClientSimple < MiniTest::Unit::TestCase
+class TestWebSocketClientSimple < MiniTest::Test
 
   def port
     (ENV['WS_PORT'] || 18080).to_i
