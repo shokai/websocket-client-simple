@@ -2,6 +2,9 @@ websocket-client-simple
 =======================
 Simple WebSocket Client for Ruby
 
+- https://github.com/shokai/websocket-client-simple
+- https://rubygems.org/gems/websocket-client-simple
+
 
 Installation
 ------------
