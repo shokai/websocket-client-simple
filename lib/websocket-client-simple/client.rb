@@ -68,6 +68,10 @@ module WebSocket
           emit :__close
         end
 
+        def open?
+          !@closed
+        end
+
       end
 
     end
