@@ -1,3 +1,7 @@
+=== 0.0.6 2014-01-17
+
+* add function Client#open?
+
 === 0.0.5 2013-03-23
 
 * kill read thread on close
