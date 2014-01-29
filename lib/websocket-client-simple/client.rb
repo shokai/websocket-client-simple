@@ -62,6 +62,7 @@ module WebSocket
         def close
           return if @closed
           @closed = true
+          send nil, :type => :close
           @socket.close if @socket
           Thread.kill @thread if @thread
           @socket = nil
