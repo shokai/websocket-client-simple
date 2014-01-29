@@ -5,7 +5,7 @@ Simple WebSocket Client for Ruby
 - https://github.com/shokai/websocket-client-simple
 - https://rubygems.org/gems/websocket-client-simple
 
-[![Build Status](https://travis-ci.org/shokai/websocket-client-simple.png)](https://travis-ci.org/shokai/websocket-client-simple)
+[![Build Status](https://travis-ci.org/shokai/websocket-client-simple.png?branch=master)](https://travis-ci.org/shokai/websocket-client-simple)
 
 
 Installation
