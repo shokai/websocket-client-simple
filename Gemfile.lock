@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    websocket-client-simple (0.0.8)
+    websocket-client-simple (0.0.9)
       event_emitter
       websocket
 
@@ -14,8 +14,8 @@ GEM
     event_emitter (0.2.5)
     eventmachine (1.0.3)
     http_parser.rb (0.5.3)
-    minitest (5.2.2)
-    rake (10.1.1)
+    minitest (5.3.1)
+    rake (10.2.2)
     websocket (1.1.2)
 
 PLATFORMS
