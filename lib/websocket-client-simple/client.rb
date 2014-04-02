@@ -27,20 +27,20 @@ module WebSocket
             while !@closed do
               begin
                 recv_data = @socket.getc
+                if !@handshaked
+                  @hs << recv_data
+                  if @hs.finished?
+                    @handshaked = true
+                    emit :open
+                  end
+                else
+                  frame << recv_data
+                  while msg = frame.next
+                    emit :message, msg
+                  end
+                end
               rescue => e
-                emit :__close, e
-              end
-              if !@handshaked
-                @hs << recv_data
-                if @hs.finished?
-                  @handshaked = true
-                  emit :open
-                end
-              else
-                frame << recv_data
-                while msg = frame.next
-                  emit :message, msg
-                end
+                emit :error, e
               end
             end
           end

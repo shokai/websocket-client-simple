@@ -35,6 +35,10 @@ ws.on :close do |e|
   exit 1
 end
 
+ws.on :error do |e|
+  p e
+end
+
 loop do
   ws.send STDIN.gets.strip
 end
