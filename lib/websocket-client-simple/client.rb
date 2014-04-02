@@ -54,7 +54,7 @@ module WebSocket
           frame = ::WebSocket::Frame::Outgoing::Client.new(:data => data, :type => type, :version => @hs.version)
           begin
             @socket.write frame.to_s
-          rescue => e
+          rescue Errno::EPIPE => e
             emit :__close, e
           end
         end
