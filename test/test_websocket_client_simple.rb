@@ -65,12 +65,12 @@ class TestWebSocketClientSimple < MiniTest::Test
       end
     }
 
-    assert msgs.size == res1.size
-    assert msgs.size == res2.size
+    assert_equal msgs.size, res1.size
+    assert_equal msgs.size, res2.size
 
     msgs.each_with_index do |msg,i|
-      assert msg == res1[i].to_s
-      assert msg == res2[i].to_s
+      assert_equal msg, res1[i].to_s
+      assert_equal msg, res2[i].to_s
     end
 
   end
