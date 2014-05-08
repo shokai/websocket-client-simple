@@ -16,7 +16,7 @@ GEM
     http_parser.rb (0.6.0)
     minitest (5.3.3)
     rake (10.3.1)
-    websocket (1.1.2)
+    websocket (1.1.4)
 
 PLATFORMS
   ruby
