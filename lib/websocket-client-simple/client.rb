@@ -8,13 +8,13 @@ module WebSocket
 
       class Client
         include EventEmitter
-        attr_reader :url
+        attr_reader :url, :handshake
 
         def initialize(url)
           @url = url
           uri = URI.parse url
           @socket = TCPSocket.new(uri.host, uri.port || 80)
-          @hs = ::WebSocket::Handshake::Client.new :url => url
+          @handshake = ::WebSocket::Handshake::Client.new :url => url
           @handshaked = false
           frame = ::WebSocket::Frame::Incoming::Client.new
           @closed = false
@@ -27,9 +27,9 @@ module WebSocket
             while !@closed do
               begin
                 recv_data = @socket.getc
-                if !@handshaked
-                  @hs << recv_data
-                  if @hs.finished?
+                unless @handshaked
+                  @handshake << recv_data
+                  if @handshake.finished?
                     @handshaked = true
                     emit :open
                   end
@@ -45,13 +45,13 @@ module WebSocket
             end
           end
 
-          @socket.write @hs.to_s
+          @socket.write @handshake.to_s
         end
 
         def send(data, opt={:type => :text})
           return if !@handshaked or @closed
           type = opt[:type]
-          frame = ::WebSocket::Frame::Outgoing::Client.new(:data => data, :type => type, :version => @hs.version)
+          frame = ::WebSocket::Frame::Outgoing::Client.new(:data => data, :type => type, :version => @handshake.version)
           begin
             @socket.write frame.to_s
           rescue Errno::EPIPE => e
@@ -70,7 +70,7 @@ module WebSocket
         end
 
         def open?
-          !@closed
+          @handshake.finished? and !@closed
         end
 
       end

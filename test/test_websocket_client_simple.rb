@@ -33,7 +33,9 @@ class TestWebSocketClientSimple < MiniTest::Test
       EM::add_timer 1 do
         url = "ws://localhost:#{port}"
         client1 = WebSocket::Client::Simple.connect url
+        assert_equal client1.open?, false
         client2 = WebSocket::Client::Simple.connect url
+        assert_equal client2.open?, false
 
         client1.on :message do |msg|
           res1.push msg
@@ -58,6 +60,8 @@ class TestWebSocketClientSimple < MiniTest::Test
         end
 
         EM::add_timer 3 do
+          assert_equal client1.open?, true
+          assert_equal client2.open?, true
           client1.close
           client2.close
           EM::stop_event_loop
