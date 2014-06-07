@@ -1,6 +1,7 @@
 require 'event_emitter'
 require 'websocket'
 require 'socket'
+require 'openssl'
 require 'uri'
 
 require 'websocket-client-simple/version'

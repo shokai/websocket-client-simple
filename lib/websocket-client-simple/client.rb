@@ -13,9 +13,10 @@ module WebSocket
         def initialize(url)
           @url = url
           uri = URI.parse url
-          @socket = TCPSocket.new(uri.host, uri.port || 80)
-          if uri.scheme == 'https'
-            @socket = OpenSSL::SSL::SSLSocket.new(@socket)
+          @socket = TCPSocket.new(uri.host,
+                                  uri.port || (uri.scheme == 'wss' ? 443 : 80))
+          if ['https', 'wss'].include? uri.scheme
+            @socket = ::OpenSSL::SSL::SSLSocket.new(@socket)
             @socket.connect
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url
