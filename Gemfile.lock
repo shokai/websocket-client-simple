@@ -14,9 +14,9 @@ GEM
     event_emitter (0.2.5)
     eventmachine (1.0.3)
     http_parser.rb (0.6.0)
-    minitest (5.3.3)
-    rake (10.3.1)
-    websocket (1.1.4)
+    minitest (5.4.2)
+    rake (10.3.2)
+    websocket (1.2.1)
 
 PLATFORMS
   ruby
