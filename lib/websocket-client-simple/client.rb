@@ -31,7 +31,10 @@ module WebSocket
           @thread = Thread.new do
             while !@closed do
               begin
-                next unless recv_data = @socket.getc
+                unless recv_data = @socket.getc
+                  sleep 1
+                  next
+                end
                 unless @handshaked
                   @handshake << recv_data
                   if @handshake.finished?
