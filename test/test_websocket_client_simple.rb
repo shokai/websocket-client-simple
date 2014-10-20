@@ -15,7 +15,7 @@ class TestWebSocketClientSimple < MiniTest::Test
       @channel = EM::Channel.new
 
       ## echo server
-      EM::WebSocket.start(:host => "0.0.0.0", :port => port) do |ws|
+      WebSocket::EventMachine::Server.start(:host => "0.0.0.0", :port => port) do |ws|
         ws.onopen do
           sid = @channel.subscribe do |mes|
             ws.send mes

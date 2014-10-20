@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'eventmachine'
-require 'em-websocket'
+require 'websocket-eventmachine-server'
 
 PORT = (ARGV.shift || 8080).to_i
 
@@ -8,7 +8,8 @@ EM::run do
   @channel = EM::Channel.new
 
   puts "start websocket server - port:#{PORT}"
-  EM::WebSocket.start(:host => "0.0.0.0", :port => PORT) do |ws|
+
+  WebSocket::EventMachine::Server.start(:host => "0.0.0.0", :port => PORT) do |ws|
     ws.onopen do
       sid = @channel.subscribe do |mes|
         ws.send mes

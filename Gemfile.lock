@@ -8,23 +8,26 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    em-websocket (0.5.1)
-      eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
     event_emitter (0.2.5)
     eventmachine (1.0.3)
-    http_parser.rb (0.6.0)
     minitest (5.4.2)
     rake (10.3.2)
     websocket (1.2.1)
+    websocket-eventmachine-base (1.1.0)
+      eventmachine (~> 1.0)
+      websocket (~> 1.0)
+      websocket-native (~> 1.0)
+    websocket-eventmachine-server (1.0.1)
+      websocket-eventmachine-base (~> 1.0)
+    websocket-native (1.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bundler (~> 1.3)
-  em-websocket
   eventmachine
   minitest
   rake
   websocket-client-simple!
+  websocket-eventmachine-server
