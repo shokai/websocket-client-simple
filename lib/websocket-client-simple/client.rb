@@ -2,21 +2,23 @@ module WebSocket
   module Client
     module Simple
 
-      def self.connect(url)
-        ::WebSocket::Client::Simple::Client.new url
+      def self.connect(url, options={})
+        ::WebSocket::Client::Simple::Client.new(url, options)
       end
 
       class Client
         include EventEmitter
         attr_reader :url, :handshake
 
-        def initialize(url)
+        def initialize(url, options={})
           @url = url
           uri = URI.parse url
           @socket = TCPSocket.new(uri.host,
                                   uri.port || (uri.scheme == 'wss' ? 443 : 80))
           if ['https', 'wss'].include? uri.scheme
-            @socket = ::OpenSSL::SSL::SSLSocket.new(@socket)
+            ctx = OpenSSL::SSL::SSLContext.new
+            ctx.ssl_version = options[:ssl_version] || 'SSLv23'
+            @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
             @socket.connect
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url
