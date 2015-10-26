@@ -9,11 +9,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     event_emitter (0.2.5)
-    eventmachine (1.0.3)
-    minitest (5.4.3)
-    rake (10.3.2)
-    websocket (1.2.1)
-    websocket-eventmachine-base (1.1.0)
+    eventmachine (1.0.8)
+    minitest (5.8.1)
+    rake (10.4.2)
+    websocket (1.2.2)
+    websocket-eventmachine-base (1.1.1)
       eventmachine (~> 1.0)
       websocket (~> 1.0)
       websocket-native (~> 1.0)
@@ -31,3 +31,6 @@ DEPENDENCIES
   rake
   websocket-client-simple!
   websocket-eventmachine-server
+
+BUNDLED WITH
+   1.10.5
