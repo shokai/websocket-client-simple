@@ -1,3 +1,8 @@
+=== 0.2.3 2015-10-26
+
+* kill thread at end of method
+  * thank you for contributing @hansy
+
 === 0.2.2 2014-11-18
 
 * add :ssl_version option to specify version of SSL/TLS
