@@ -10,7 +10,7 @@ GEM
   specs:
     event_emitter (0.2.5)
     eventmachine (1.0.8)
-    minitest (5.8.1)
+    minitest (5.8.2)
     rake (10.4.2)
     websocket (1.2.2)
     websocket-eventmachine-base (1.1.1)
