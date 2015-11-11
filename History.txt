@@ -1,3 +1,7 @@
+=== 0.2.4 2015-11-12
+
+* support handshake headers
+
 === 0.2.3 2015-10-26
 
 * kill thread at end of method
