@@ -21,7 +21,7 @@ module WebSocket
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
             @socket.connect
           end
-          @handshake = ::WebSocket::Handshake::Client.new :url => url
+          @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
           @handshaked = false
           frame = ::WebSocket::Frame::Incoming::Client.new
           @closed = false
