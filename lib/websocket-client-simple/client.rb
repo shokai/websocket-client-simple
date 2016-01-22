@@ -18,6 +18,10 @@ module WebSocket
           if ['https', 'wss'].include? uri.scheme
             ctx = OpenSSL::SSL::SSLContext.new
             ctx.ssl_version = options[:ssl_version] || 'SSLv23'
+            ctx.verify_mode = options[:verify_mode] || OpenSSL::SSL::VERIFY_PEER
+            cert_store = OpenSSL::X509::Store.new
+            cert_store.set_default_paths
+            ctx.cert_store = cert_store
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
             @socket.connect
           end
