@@ -23,6 +23,7 @@ module WebSocket
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
           @handshaked = false
+          @pipe_broken = false
           frame = ::WebSocket::Frame::Incoming::Client.new
           @closed = false
           once :__close do |err|
@@ -65,13 +66,16 @@ module WebSocket
           begin
             @socket.write frame.to_s
           rescue Errno::EPIPE => e
+            @pipe_broken = true
             emit :__close, e
           end
         end
 
         def close
           return if @closed
-          send nil, :type => :close
+          if !@pipe_broken
+            send nil, :type => :close
+          end
           @closed = true
           @socket.close if @socket
           @socket = nil
