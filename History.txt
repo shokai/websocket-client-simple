@@ -1,6 +1,13 @@
+=== 0.2.5 2016-02-18
+
+* bugfixed sending when broken pipe  #15
+* add :verify_mode option for SSL Context  #14
+  * thank you for contributing @michaelvilensky
+
 === 0.2.4 2015-11-12
 
-* support handshake headers
+* support handshake headers  #11
+  * thank you for contributing @mathieugagne
 
 === 0.2.3 2015-10-26
 
