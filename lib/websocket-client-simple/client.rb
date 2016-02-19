@@ -3,14 +3,18 @@ module WebSocket
     module Simple
 
       def self.connect(url, options={})
-        ::WebSocket::Client::Simple::Client.new(url, options)
+        client = ::WebSocket::Client::Simple::Client.new
+        yield client if block_given?
+        client.connect url, options
+        return client
       end
 
       class Client
         include EventEmitter
         attr_reader :url, :handshake
 
-        def initialize(url, options={})
+        def connect(url, options={})
+          return if @socket
           @url = url
           uri = URI.parse url
           @socket = TCPSocket.new(uri.host,

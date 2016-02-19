@@ -43,6 +43,19 @@ loop do
 end
 ```
 
+block style
+```ruby
+WebSocket::Client::Simple.connect 'ws://example.com:8888' do |ws|
+  ws.on :open do
+    puts "connect!"
+  end
+
+  ws.on :message do |msg|
+    puts msg.data
+  end
+end
+```
+
 
 Sample
 ------

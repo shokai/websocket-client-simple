@@ -1,10 +1,6 @@
-require File.expand_path 'test_helper', File.dirname(__FILE__)
+require_relative 'test_helper'
 
 class TestWebSocketClientSimple < MiniTest::Test
-
-  def port
-    (ENV['WS_PORT'] || 18080).to_i
-  end
 
   def test_echo
     msgs = ['foo','bar','baz']
@@ -12,29 +8,13 @@ class TestWebSocketClientSimple < MiniTest::Test
     res2 = []
 
     EM::run{
-      @channel = EM::Channel.new
-
-      ## echo server
-      WebSocket::EventMachine::Server.start(:host => "0.0.0.0", :port => port) do |ws|
-        ws.onopen do
-          sid = @channel.subscribe do |mes|
-            ws.send mes
-          end
-          ws.onmessage do |msg|
-            @channel.push msg
-          end
-          ws.onclose do
-            @channel.unsubscribe sid
-          end
-        end
-      end
+      EchoServer.start
 
       ## client1 --> server --> client2
       EM::add_timer 1 do
-        url = "ws://localhost:#{port}"
-        client1 = WebSocket::Client::Simple.connect url
+        client1 = WebSocket::Client::Simple.connect EchoServer.url
+        client2 = WebSocket::Client::Simple.connect EchoServer.url
         assert_equal client1.open?, false
-        client2 = WebSocket::Client::Simple.connect url
         assert_equal client2.open?, false
 
         client1.on :message do |msg|
