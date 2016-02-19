@@ -1,7 +1,0 @@
-sudo: false
-language: ruby
-rvm:
-  - '2.1.2'
-notifications:
-  slack:
-    secure: avBo0DyucPM8qK2F2qNT5yirZJNcXWfY9d4QKxZLfOa4aQZJ6y/x78Guo8fki/8ZLNnud+rsty3/QkPxBi3YUWcyIuCXMEcuYc8BWOjL+oD37DPgJxGg6ANKxuMotZMUzZweplkd/KgafugOHr7fsPt5UwX2ZYrZr+ksuemEoxs=
