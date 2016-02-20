@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    websocket-client-simple (0.2.5)
+    websocket-client-simple (0.3.0)
       event_emitter
       websocket
 

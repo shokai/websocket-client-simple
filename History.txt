@@ -1,3 +1,8 @@
+=== 0.3.0 2016-02-20
+
+* "connect" method runs a given block before connecting WebSocket  #12
+  * thank you for suggestion @codekitchen
+
 === 0.2.5 2016-02-18
 
 * bugfixed sending when broken pipe  #15

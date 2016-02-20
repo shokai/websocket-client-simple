@@ -43,7 +43,8 @@ loop do
 end
 ```
 
-block style
+`connect` runs a given block before connecting websocket
+
 ```ruby
 WebSocket::Client::Simple.connect 'ws://example.com:8888' do |ws|
   ws.on :open do
