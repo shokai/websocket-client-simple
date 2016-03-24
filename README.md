@@ -71,6 +71,8 @@ Test
     % export WS_PORT=8888
     % rake test
 
+There is also external Ruby gem called [simple-websocket-vcr](https://github.com/Jiri-Kremser/simple-websocket-vcr) providing the VCR cassettes for offline testing. If you use websocket-client-simple and you want to record the interactions of your app with this websocket client, this is for you.
+
 
 Contributing
 ------------
