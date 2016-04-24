@@ -21,8 +21,8 @@ module WebSocket
                                   uri.port || (uri.scheme == 'wss' ? 443 : 80))
           if ['https', 'wss'].include? uri.scheme
             ctx = OpenSSL::SSL::SSLContext.new
-            ctx.ssl_version = options[:ssl_version] || 'SSLv23'
-            ctx.verify_mode = options[:verify_mode] || OpenSSL::SSL::VERIFY_NONE #use VERIFY_PEER for verification
+            ctx.ssl_version = options[:ssl_version] if options[:ssl_version]
+            ctx.verify_mode = options[:verify_mode] if options[:verify_mode]
             cert_store = OpenSSL::X509::Store.new
             cert_store.set_default_paths
             ctx.cert_store = cert_store
