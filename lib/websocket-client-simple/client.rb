@@ -67,7 +67,7 @@ module WebSocket
           @socket.write @handshake.to_s
         end
 
-        def send(data, opt={:type => :text})
+        def send_data(data, opt={:type => :text})
           return if !@handshaked or @closed
           type = opt[:type]
           frame = ::WebSocket::Frame::Outgoing::Client.new(:data => data, :type => type, :version => @handshake.version)
@@ -82,7 +82,7 @@ module WebSocket
         def close
           return if @closed
           if !@pipe_broken
-            send nil, :type => :close
+            send_data nil, :type => :close
           end
           @closed = true
           @socket.close if @socket

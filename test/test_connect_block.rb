@@ -13,7 +13,7 @@ class TestWebSocketClientSimple < MiniTest::Test
       EM::add_timer 1 do
         WebSocket::Client::Simple.connect EchoServer.url do |client|
           client.on :open do
-            client.send "hello world"
+            client.send_data "hello world"
           end
 
           client.on :message do |msg|
