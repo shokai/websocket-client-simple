@@ -26,7 +26,7 @@ ws.on :message do |msg|
 end
 
 ws.on :open do
-  ws.send 'hello!!!'
+  ws.send_data 'hello!!!'
 end
 
 ws.on :close do |e|
@@ -39,7 +39,7 @@ ws.on :error do |e|
 end
 
 loop do
-  ws.send STDIN.gets.strip
+  ws.send_data STDIN.gets.strip
 end
 ```
 
