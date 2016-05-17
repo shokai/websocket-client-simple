@@ -27,6 +27,7 @@ module WebSocket
             cert_store.set_default_paths
             ctx.cert_store = cert_store
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
+            @socket.hostname = uri.host
             @socket.connect
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
