@@ -20,13 +20,17 @@ module WebSocket
           @socket = TCPSocket.new(uri.host,
                                   uri.port || (uri.scheme == 'wss' ? 443 : 80))
           if ['https', 'wss'].include? uri.scheme
-            ctx = OpenSSL::SSL::SSLContext.new
-            ctx.ssl_version = options[:ssl_version] || 'SSLv23'
-            ctx.verify_mode = options[:verify_mode] || OpenSSL::SSL::VERIFY_NONE #use VERIFY_PEER for verification
-            cert_store = OpenSSL::X509::Store.new
-            cert_store.set_default_paths
-            ctx.cert_store = cert_store
-            @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
+            ssl_context = options[:ssl_context] || begin
+              ctx = OpenSSL::SSL::SSLContext.new
+              ctx.ssl_version = options[:ssl_version] || 'SSLv23'
+              ctx.verify_mode = options[:verify_mode] || OpenSSL::SSL::VERIFY_NONE #use VERIFY_PEER for verification
+              cert_store = OpenSSL::X509::Store.new
+              cert_store.set_default_paths
+              ctx.cert_store = cert_store
+              ctx
+            end
+
+            @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ssl_context)
             @socket.connect
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
