@@ -19,6 +19,7 @@ module WebSocket
           uri = URI.parse url
           @socket = TCPSocket.new(uri.host,
                                   uri.port || (uri.scheme == 'wss' ? 443 : 80))
+          @socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
           if ['https', 'wss'].include? uri.scheme
             ssl_context = options[:ssl_context] || begin
               ctx = OpenSSL::SSL::SSLContext.new
