@@ -55,6 +55,9 @@ module WebSocket
 
           begin
             @socket.write_nonblock(frame.to_s)
+          rescue IO::WaitReadable
+            IO.select([@socket]) # OpenSSL needs to read internally
+            retry
           rescue IO::WaitWritable, Errno::EINTR
             IO.select(nil, [@socket])
             retry
@@ -81,7 +84,7 @@ module WebSocket
 
           while !@handshaked
             begin
-              read_sockets, _, _ = IO.select([@socket], [], [], 10)
+              read_sockets, _, _ = IO.select([@socket], nil, nil, 10)
 
               if read_sockets && read_sockets[0]
                 @handshake << @socket.read_nonblock(1024)
@@ -107,7 +110,7 @@ module WebSocket
             emit :open
 
             while !@closed do
-              read_sockets, _, _ = IO.select([socket], nil, nil, 1)
+              read_sockets, _, _ = IO.select([socket], nil, nil, 10)
 
               if read_sockets && read_sockets[0]
                 begin
