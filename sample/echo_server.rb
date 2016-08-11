@@ -12,7 +12,7 @@ EM::run do
   WebSocket::EventMachine::Server.start(:host => "0.0.0.0", :port => PORT) do |ws|
     ws.onopen do
       sid = @channel.subscribe do |mes|
-        ws.send mes
+        ws.send_data mes
       end
       puts "<#{sid}> connect"
 

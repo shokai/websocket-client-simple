@@ -27,5 +27,5 @@ ws.on :error do |e|
 end
 
 loop do
-  ws.send STDIN.gets.strip
+  ws.send_data STDIN.gets.strip
 end
