@@ -14,7 +14,7 @@ module WebSocket
         attr_reader :url, :handshake
 
         def connect(url, options={})
-          return if @socket
+          return if @socket ||= nil
           @url = url
           uri = URI.parse url
           @socket = TCPSocket.new(uri.host,
