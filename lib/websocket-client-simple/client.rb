@@ -84,11 +84,16 @@ module WebSocket
           if !@pipe_broken
             send nil, :type => :close
           end
+
           @closed = true
+          if @thread
+            Thread.kill @thread
+            Thread.pass while @thread.status
+            @thread = nil
+          end
           @socket.close if @socket
           @socket = nil
           emit :__close
-          Thread.kill @thread if @thread
         end
 
         def open?
