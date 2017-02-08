@@ -26,6 +26,8 @@ module WebSocket
             cert_store = OpenSSL::X509::Store.new
             cert_store.set_default_paths
             ctx.cert_store = cert_store
+            ctx.cert = OpenSSL::X509::Certificate.new(File.read(options[:cert_chain_file])) || nil
+            ctx.key = OpenSSL::PKey::RSA.new(File.read(options[:private_key_file])) || nil
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
             @socket.connect
           end
