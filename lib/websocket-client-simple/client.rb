@@ -48,9 +48,11 @@ module WebSocket
                 end
                 unless @handshaked
                   @handshake << recv_data
-                  if @handshake.finished?
+                  if @handshake.valid?
                     @handshaked = true
                     emit :open
+                  elsif @handshake.error
+                    emit :error, @handshake.error
                   end
                 else
                   frame << recv_data
@@ -92,7 +94,7 @@ module WebSocket
         end
 
         def open?
-          @handshake.finished? and !@closed
+          @handshake.valid? && !@closed
         end
 
       end
