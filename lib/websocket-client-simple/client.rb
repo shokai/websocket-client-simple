@@ -39,10 +39,6 @@ module WebSocket
           @handshaked = false
           @pipe_broken = false
           @closed = false
-          once :__close do |err|
-            close
-            emit :close, err
-          end
 
           handshake
           @thread = poll
@@ -63,15 +59,18 @@ module WebSocket
             retry
           rescue Errno::EPIPE => e
             @pipe_broken = true
-            emit :__close, e
+            close(e)
+          rescue OpenSSL::SSL::SSLError => e
+            @pipe_broken = true
+            close(e)
           end
         end
 
-        def close
+        def close(err=nil)
           return if @closed
 
           send_data nil, :type => :close if !@pipe_broken
-          emit :__close
+          emit :close, err
         ensure
           @closed = true
           @socket.close if @socket
@@ -129,6 +128,9 @@ module WebSocket
                 rescue IO::WaitWritable
                   IO.select(nil, [socket])
                   retry
+                rescue EOFError => e
+                  emit :error, e
+                  close(e)
                 rescue => e
                   emit :error, e
                 end
