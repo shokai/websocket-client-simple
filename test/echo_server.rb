@@ -4,7 +4,7 @@ module EchoServer
       @channel = EM::Channel.new
       ws.onopen do
         sid = @channel.subscribe do |mes|
-          ws.send mes  # echo to client
+          ws.send_data mes  # echo to client
         end
         ws.onmessage do |msg|
           @channel.push msg

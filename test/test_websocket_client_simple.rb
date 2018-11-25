@@ -27,7 +27,7 @@ class TestWebSocketClientSimple < MiniTest::Test
 
         client1.on :open do
           msgs.each do |m|
-            client1.send m
+            client1.send_data m
           end
         end
 
