@@ -11,7 +11,7 @@ module WebSocket
 
       class Client
         include EventEmitter
-        attr_reader :url, :handshake
+        attr_reader :url, :handshake, :message
 
         def connect(url, options={})
           return if @socket
@@ -56,6 +56,7 @@ module WebSocket
                 else
                   frame << recv_data
                   while msg = frame.next
+                    @message = msg
                     emit :message, msg
                   end
                 end
