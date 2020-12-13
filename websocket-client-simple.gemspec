@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake", ">= 0"
-  spec.add_development_dependency "minitest", ">= 0"
+  spec.add_development_dependency "rake", "~> 12.3.2"
+  spec.add_development_dependency "minitest", "~> 5.11.3"
   spec.add_development_dependency "websocket-eventmachine-server", ">= 0"
   spec.add_development_dependency "eventmachine", "~> 1.2.7"
 
