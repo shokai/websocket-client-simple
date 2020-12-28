@@ -78,6 +78,9 @@ module WebSocket
           rescue Errno::EPIPE => e
             @pipe_broken = true
             emit :__close, e
+          rescue OpenSSL::SSL::SSLError => e
+            @pipe_broken = true
+            emit :__close, e
           end
         end
 
