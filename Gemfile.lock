@@ -33,4 +33,4 @@ DEPENDENCIES
   websocket-eventmachine-server
 
 BUNDLED WITH
-   1.11.2
+   1.17.3

@@ -11,7 +11,7 @@ module WebSocket
 
       class Client
         include EventEmitter
-        attr_reader :url, :handshake
+        attr_reader :url, :handshake, :message
 
         def connect(url, options={})
           return if @socket
@@ -27,6 +27,7 @@ module WebSocket
             cert_store.set_default_paths
             ctx.cert_store = cert_store
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
+            @socket.hostname = uri.host
             @socket.connect
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
@@ -55,6 +56,7 @@ module WebSocket
                 else
                   frame << recv_data
                   while msg = frame.next
+                    @message = msg
                     emit :message, msg
                   end
                 end
@@ -76,6 +78,9 @@ module WebSocket
           rescue Errno::EPIPE => e
             @pipe_broken = true
             emit :__close, e
+          rescue OpenSSL::SSL::SSLError => e
+            @pipe_broken = true
+            emit :__close, e
           end
         end
 
@@ -93,6 +98,10 @@ module WebSocket
 
         def open?
           @handshake.finished? and !@closed
+        end
+
+        def close?
+          @closed
         end
 
       end
