@@ -1,5 +1,13 @@
 websocket-client-simple
 =======================
+
+:warning: Important notice :warning:
+------------------------------------
+
+The development of this repository has moved to [ruby-jp/websocket-client-simple](https://github.com/ruby-jp/websocket-client-simple).
+
+-------------
+
 Simple WebSocket Client for Ruby
 
 - https://github.com/shokai/websocket-client-simple
