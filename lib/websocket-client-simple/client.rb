@@ -26,6 +26,8 @@ module WebSocket
             cert_store = OpenSSL::X509::Store.new
             cert_store.set_default_paths
             ctx.cert_store = cert_store
+            @read_buffer = options[:read_buffer]
+            @check_interval = options[:check_interval] || 1
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
             @socket.connect
           end
@@ -42,8 +44,8 @@ module WebSocket
           @thread = Thread.new do
             while !@closed do
               begin
-                unless recv_data = @socket.getc
-                  sleep 1
+                unless recv_data = (@read_buffer.nil? ? @socket.getc : @socket.readpartial(@read_buffer))
+                  sleep @check_interval
                   next
                 end
                 unless @handshaked
