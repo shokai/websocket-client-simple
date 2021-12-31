@@ -1,3 +1,5 @@
+* Made the necessary changes to use SNI.
+
 === 0.3.0 2016-02-20
 
 * "connect" method runs a given block before connecting WebSocket  #12
