@@ -11,7 +11,7 @@ module WebSocket
 
       class Client
         include EventEmitter
-        attr_reader :url, :handshake
+        attr_reader :url, :handshake, :message
 
         def connect(url, options={})
           return if @socket
@@ -19,6 +19,7 @@ module WebSocket
           uri = URI.parse url
           @socket = TCPSocket.new(uri.host,
                                   uri.port || (uri.scheme == 'wss' ? 443 : 80))
+          @socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
           if ['https', 'wss'].include? uri.scheme
             ctx = OpenSSL::SSL::SSLContext.new
             ctx.ssl_version = options[:ssl_version] || 'SSLv23'
@@ -27,6 +28,7 @@ module WebSocket
             cert_store.set_default_paths
             ctx.cert_store = cert_store
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
+            @socket.hostname = uri.host
             @socket.connect
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
@@ -55,6 +57,7 @@ module WebSocket
                 else
                   frame << recv_data
                   while msg = frame.next
+                    @message = msg
                     emit :message, msg
                   end
                 end
@@ -76,6 +79,9 @@ module WebSocket
           rescue Errno::EPIPE => e
             @pipe_broken = true
             emit :__close, e
+          rescue OpenSSL::SSL::SSLError => e
+            @pipe_broken = true
+            emit :__close, e
           end
         end
 
@@ -93,6 +99,10 @@ module WebSocket
 
         def open?
           @handshake.finished? and !@closed
+        end
+
+        def close?
+          @closed
         end
 
       end
